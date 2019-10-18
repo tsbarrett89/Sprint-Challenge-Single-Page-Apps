@@ -1,17 +1,30 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Header from "./components/Header.js";
-import { Route } from 'react-router-dom';
+import WelcomePage from "./components/WelcomePage";
+import {Route} from 'react-router-dom';
+import CharacterList from "./components/CharacterList";
+import axios from "axios";
 
-import CharacterList from './components/CharacterList';
-import WelcomePage from './components/WelcomePage';
+
+
 
 export default function App() {
+  const [data,setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([])
+
+  useEffect(()=>{
+    axios.get(`https://rickandmortyapi.com/api/character/`)
+    .then(response=>{
+      setData(response.data.results);
+      setFilteredData(response.data.results)
+    })
+  },[])
+
   return (
     <main>
-      <Header />
       <WelcomePage />
-      <Route exact path="/" render={props => <WelcomePage {...props} />} />
-      <Route path="/CharacterList" render={props => <CharacterList {...props} />} />
+      <Route path="/" exact component={WelcomePage} />
+      <Route path="/characters" exact render={(props)=>(<CharacterList {...props} data={data} filteredData={filteredData} setFilteredData={setFilteredData} />)} />
     </main>
   );
 }
