@@ -22,7 +22,7 @@ export default function App() {
 
   return (
     <main>
-      <WelcomePage />
+      <Header />
       <Route path="/" exact component={WelcomePage} />
       <Route path="/characters" exact render={(props)=>(<CharacterList {...props} data={data} filteredData={filteredData} setFilteredData={setFilteredData} />)} />
     </main>

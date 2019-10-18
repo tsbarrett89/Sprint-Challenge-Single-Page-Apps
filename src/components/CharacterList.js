@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
+import styled from 'styled-components';
+
+const CharCard = styled.div `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
 
 
 export default function CharacterList(props) {
@@ -19,10 +26,8 @@ console.log(props.data)
       <div>
       {props.filteredData.map((character)=>(
         <div key={character.id}>
-          <img src={character.image} />
           <h3>{character.name}</h3>
-          <p>{character.species}</p>
-          <p>{character.gender}</p>
+          <img src={character.image} />
         </div>
       ))}
       </div>
